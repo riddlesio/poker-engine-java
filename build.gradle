@@ -1,0 +1,66 @@
+group 'io.riddles'
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'application'
+apply plugin: 'com.jfrog.artifactory'
+
+version = '1.0.0'
+
+mainClassName = 'io.riddles.poker.Poker'
+sourceCompatibility = 1.8
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.4.0'
+    }
+}
+
+artifactory {
+    resolve {
+        contextUrl = 'http://artifactory.dev.riddles.io/artifactory'
+        repoKey = 'libs-release-local'
+        username = 'anonymous'
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/java'
+        }
+    }
+
+    test {
+        groovy {
+            srcDir 'test/groovy'
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Poker Game Engine',
+                'Implementation-Version': version,
+                'Main-Class': mainClassName
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'io.riddles', name: 'javainterface', version: '1.0.7'
+    compile group: 'org.json', name: 'json', version: '20160212'
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.1'
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+    testRuntime 'cglib:cglib-nodep:2.2.2'
+}

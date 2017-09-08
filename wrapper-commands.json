@@ -1,0 +1,21 @@
+{
+  "wrapper": {
+    "timebankMax": 2000,
+    "timePerMove": 100,
+    "maxTimeouts": 0,
+    "resultFile": "./resultfile.json",
+    "propagateBotExitCode": false,
+    "debug": true
+  },
+  "match": {
+    "bots": [{
+      "command": "java -jar /home/jim/workspace/texasholdem-starterbot-java/build/libs/texasholdem-starterbot-java-1.0.0.jar"
+    },{
+      "command": "java -jar /home/jim/workspace/texasholdem-starterbot-java/build/libs/texasholdem-starterbot-java-1.0.0.jar"
+    }],
+    "engine": {
+      "command": "java -jar /home/jim/workspace/poker-engine-java/build/libs/poker-engine-java-1.0.0.jar",
+      "configuration": {}
+    }
+  }
+}

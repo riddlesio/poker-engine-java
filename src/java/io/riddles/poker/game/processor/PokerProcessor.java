@@ -167,6 +167,8 @@ public class PokerProcessor extends SimpleProcessor<PokerState, PokerPlayer> {
         nextState.getTable().setHandStrengths();
         nextState.getTable().putBetsInPot();
 
+        broadCastShowdown(nextState);
+
         return nextState;
     }
 
@@ -285,6 +287,24 @@ public class PokerProcessor extends SimpleProcessor<PokerState, PokerPlayer> {
 
             PokerPlayer otherPlayer = getPlayer(otherPlayerState.getPlayerId());
             otherPlayer.sendUpdate("move", player, playerState.getLastMove().toString());
+        }
+    }
+
+    private void broadCastShowdown(PokerState state) {
+        ArrayList<PokerPlayerState> showdownPlayers = getActuallyAlivePlayers(state).stream()
+                .filter(ps -> !ps.hasFolden())
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        for (PokerPlayerState playerState : state.getPlayerStates()) {
+            PokerPlayer player = getPlayer(playerState.getPlayerId());
+
+            for (PokerPlayerState targetPlayerState : showdownPlayers) {
+                if (playerState.getPlayerId() == targetPlayerState.getPlayerId()) continue;
+
+                PokerPlayer targetPlayer = getPlayer(targetPlayerState.getPlayerId());
+
+                player.sendUpdate("hand", targetPlayer, targetPlayerState.getHandString());
+            }
         }
     }
 

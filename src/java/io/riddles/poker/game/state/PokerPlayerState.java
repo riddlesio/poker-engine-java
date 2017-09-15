@@ -237,4 +237,8 @@ public class PokerPlayerState extends AbstractPlayerState<PokerMove> {
     public void setFolded() {
         this.hasFolded = true;
     }
+
+    public boolean hasFolden() {
+        return this.hasFolded;
+    }
 }

@@ -1,0 +1,21 @@
+settings player_names player0,player1
+settings your_bot player0
+settings timebank 5000
+settings time_per_move 200
+settings initial_stack 2000
+settings initial_big_blind 60
+settings hands_per_blind_level 10
+update game round 1
+update game small_blind 30
+update game big_blind 60
+update game on_button player1
+update player0 chips 2000
+update player1 chips 2000
+update game bet_round preflop
+update player0 hand 6c,7h
+update player1 move call
+update player0 bet 60
+update player1 bet 60
+update player0 pot 120
+update player0 amount_to_call 0
+action move 5000

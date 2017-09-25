@@ -535,7 +535,11 @@ public class PokerTable {
                 if (amount < chips) {
                     if ((callAmount == 0 && amount < this.blindHeight * 2)
                             || (callAmount > 0 && amount < this.lastFullRaise)) {
-                        move.setMoveType(MoveType.CALL);
+                        if (callAmount == 0) {
+                            move.setMoveType(MoveType.CHECK);
+                        } else {
+                            move.setMoveType(MoveType.CALL);
+                        }
                         move.setException(new InvalidMoveException("Raise amount below minimum."));
                         break;
                     }

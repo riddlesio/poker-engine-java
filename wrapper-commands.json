@@ -9,7 +9,7 @@
   },
   "match": {
     "bots": [{
-      "command": "java -jar /home/jim/workspace/texasholdem-starterbot-java/build/libs/texasholdem-starterbot-java-1.0.0.jar"
+      "command": "node /home/jim/Downloads/texasholdem-starterbot-javascript/Bot.js"
     },{
       "command": "java -jar /home/jim/workspace/texasholdem-starterbot-java/build/libs/texasholdem-starterbot-java-1.0.0.jar"
     }],

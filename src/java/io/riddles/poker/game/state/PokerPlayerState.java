@@ -230,6 +230,10 @@ public class PokerPlayerState extends AbstractPlayerState<PokerMove> {
         this.hasFailedInput = true;
     }
 
+    public boolean hasFailedInput() {
+        return this.hasFailedInput;
+    }
+
     public boolean hasActed() {
         return !this.betRoundMoves.isEmpty();
     }

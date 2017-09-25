@@ -59,6 +59,10 @@ public class PokerPlayerStateSerializer implements Serializer<PokerPlayerState> 
             playerStateObj.put("odds", playerState.getOdds());
         }
 
+        if (playerState.hasFailedInput()) {
+            playerStateObj.put("failedInput", true);
+        }
+
         return playerStateObj;
     }
 

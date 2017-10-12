@@ -9,13 +9,18 @@
   },
   "match": {
     "bots": [{
-      "command": "node /home/jim/Downloads/texasholdem-starterbot-javascript/Bot.js"
+      "command": "java -jar /home/jim/workspace/texasholdem-starterbot-java/build/libs/texasholdem-starterbot-java-1.0.0.jar"
     },{
       "command": "java -jar /home/jim/workspace/texasholdem-starterbot-java/build/libs/texasholdem-starterbot-java-1.0.0.jar"
     }],
     "engine": {
-      "command": "java -jar /home/jim/workspace/poker-engine-java/build/libs/poker-engine-java-1.0.0.jar",
-      "configuration": {}
+      "command": "java -jar /home/jim/workspace/poker-engine-java/build/libs/poker-engine-java-1.0.1.jar",
+      "configuration": {
+        "initialStack": {
+          "type": "integer",
+          "value": 1000
+        }
+      }
     }
   }
 }

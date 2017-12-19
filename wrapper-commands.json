@@ -14,7 +14,7 @@
       "command": "java -jar /home/jim/workspace/texasholdem-starterbot-java/build/libs/texasholdem-starterbot-java-1.0.0.jar"
     }],
     "engine": {
-      "command": "java -jar /home/jim/workspace/poker-engine-java/build/libs/poker-engine-java-1.0.1.jar",
+      "command": "java -jar /home/jim/workspace/poker-engine-java/build/libs/poker-engine-java-1.0.2.jar",
       "configuration": {
         "initialStack": {
           "type": "integer",

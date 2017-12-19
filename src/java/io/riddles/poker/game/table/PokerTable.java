@@ -521,7 +521,11 @@ public class PokerTable {
                         .filter(ps -> ps.getPlayerId() != playerState.getPlayerId())
                         .collect(Collectors.toCollection(ArrayList::new));
                 if (otherHandPlayers.stream().allMatch(PokerPlayerState::isAllin)) {
-                    move.setMoveType(MoveType.CALL);
+                    if (callAmount == 0) {
+                        move.setMoveType(MoveType.CHECK);
+                    } else {
+                        move.setMoveType(MoveType.CALL);
+                    }
                     move.setException(new InvalidMoveException("All players are already all-in."));
                     break;
                 }

@@ -48,6 +48,7 @@ public class PokerPlayerState extends AbstractPlayerState<PokerMove> {
     private int handStrength;
     private HandEval.HandCategory handCategory;
     private boolean isAllIn;
+    private boolean hasActed;
 
     public PokerPlayerState(int playerId, int chips) {
         super(playerId);
@@ -59,6 +60,7 @@ public class PokerPlayerState extends AbstractPlayerState<PokerMove> {
         this.hand = new ArrayList<>();
         this.betRoundMoves = new ArrayList<>();
         this.isAllIn = false;
+        this.hasActed = false;
     }
 
     public PokerPlayerState(PokerPlayerState playerState) {
@@ -72,6 +74,7 @@ public class PokerPlayerState extends AbstractPlayerState<PokerMove> {
         this.handStrength = playerState.handStrength;
         this.handCategory = playerState.handCategory;
         this.isAllIn = playerState.isAllIn;
+        this.hasActed = playerState.hasActed;
 
         this.hand = playerState.hand.stream()
                 .map(card -> new Card(card.getNumber()))
@@ -93,6 +96,7 @@ public class PokerPlayerState extends AbstractPlayerState<PokerMove> {
         this.handStrength = -1;
         this.handCategory = null;
         this.isAllIn = false;
+        this.hasActed = false;
     }
 
     /**
@@ -105,6 +109,7 @@ public class PokerPlayerState extends AbstractPlayerState<PokerMove> {
         this.odds = null;
         this.handStrength = -1;
         this.handCategory = null;
+        this.hasActed = false;
     }
 
     public void giveCard(Card card) {
@@ -192,6 +197,10 @@ public class PokerPlayerState extends AbstractPlayerState<PokerMove> {
         return isAlive() && !this.hasFolded;
     }
 
+    public boolean isBetting() {
+        return isActive() && !hasActed();
+    }
+
     @Override
     public void setMove(PokerMove move) {
         this.betRoundMoves.add(move);
@@ -234,8 +243,12 @@ public class PokerPlayerState extends AbstractPlayerState<PokerMove> {
         return this.hasFailedInput;
     }
 
+    public void setHasActed(boolean hasActed) {
+        this.hasActed = hasActed;
+    }
+
     public boolean hasActed() {
-        return !this.betRoundMoves.isEmpty();
+        return this.hasActed;
     }
 
     public void setFolded() {

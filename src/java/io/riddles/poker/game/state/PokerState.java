@@ -81,6 +81,12 @@ public class PokerState extends AbstractState<PokerPlayerState> {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    public ArrayList<PokerPlayerState> getBettingPlayers() {
+        return this.playerStates.stream()
+                .filter(PokerPlayerState::isBetting)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
     public PokerTable getTable() {
         return this.table;
     }

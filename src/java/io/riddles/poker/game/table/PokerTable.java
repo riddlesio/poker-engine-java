@@ -159,6 +159,9 @@ public class PokerTable {
 
                 playerState.increaseBet(callAmount + raiseAmount);
 
+                // After a raise, the others players may act again
+                this.state.getActivePlayers().forEach(ps -> ps.setHasActed(false));
+
                 if ((callAmount == 0 && raiseAmount >= this.blindHeight * 2)
                         || (callAmount > 0 && raiseAmount >= this.lastFullRaise)) {
                     this.lastFullRaise = raiseAmount;
@@ -166,6 +169,8 @@ public class PokerTable {
 
                 break;
         }
+
+        playerState.setHasActed(true);
     }
 
     public boolean hasHandEnded() {
@@ -188,7 +193,7 @@ public class PokerTable {
         }
 
         // Betting round can't end when there are active players that haven't acted yet
-        if (!activePlayers.stream().allMatch(PokerPlayerState::hasActed)) {
+        if (this.state.getBettingPlayers().size() >= 1) {
             return false;
         }
 
@@ -299,8 +304,7 @@ public class PokerTable {
 
         // Only set the strenghts on a showdown
         for (PokerPlayerState playerState : this.state.getHandPlayers()) {
-            int strength = HandEvaluator.getHandStrength(
-                    playerState.getHand(), this.tableCards);
+            int strength = HandEvaluator.getHandStrength(playerState.getHand(), this.tableCards);
             playerState.setHandStrength(strength);
         }
     }
